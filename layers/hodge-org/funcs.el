@@ -106,3 +106,4 @@
                    "-message" message
                    "-activate" "org.gnu.Emacs"
                    "-sender" "org.gnu.Emacs")))
+

@@ -231,3 +231,75 @@
                 mu4e-contexts))))
 
   ))
+
+;; (defun sukey-tools/init-make-it-so()
+;;   (use-package make-it-so
+;;     :defer t
+;;     :init
+;;     (progn
+;;       (mis-config-default) 
+;;       )))
+;; (defun sukey-tools/init-figlet()
+;;   (use-package figlet
+;;     :defer t
+;;     :init
+;;     (progn
+;;       )))
+
+;; (defun sukey-tools/init-emms()
+;;   (use-package emms
+;;     :defer t
+;;     :init
+;;     (progn
+;;       (emms-standard)
+;;       (setq emms-player-list '(emms-player-mplayer) emms-player-mplayer-command-name "mplayer" emms-player-mplayer-parameters '("-slave"))
+;;       (setq emms-repeat-playlist nil emms-source-file-default-directory "/Users/sukey/Music/网易云音乐/" emms-lyrics-dir "/Users/sukey/Music/网易云音乐/" emms-lyrics-coding-system nil emms-playlist-buffer-name "*EMMS*")
+;;       (global-set-key (kbd "C-c e g") 'emms-play-directory)
+;;       (global-set-key (kbd "C-c e d") 'emms-play-dired)
+;;       (global-set-key (kbd "C-c e v") 'emms-playlist-mode-go)
+;;       (global-set-key (kbd "C-c e x") 'emms-start)
+;;       (global-set-key (kbd "C-c e SPC") 'emms-pause)
+;;       (global-set-key (kbd "C-c e s") 'emms-stop)
+;;       (global-set-key (kbd "C-c e n") 'emms-next)
+;;       (global-set-key (kbd "C-c e p") 'emms-previous)
+;;       )))
+
+;; (defun sukey-tools/init-password-store()
+;;   (use-package password-store
+;;   :defer t
+;;   :init
+;;   (progn
+;;     (setq password-store-password-length 15)
+
+;;     (defun sukey/password-store-get-second-line(entry)
+;;       (car (cdr (s-lines (password-store--run-show entry)))))
+
+;;     (defun password-store-url (entry)
+;;       (interactive (list (password-store--completing-read)))
+;;       (let ((url (sukey/password-store-get-second-line entry)))
+;;         (if (or (string-prefix-p "http://" url)
+;;                 (string-prefix-p "https://" url))
+;;             (browse-url url)
+;;           (error "%s" "String does not look like a URL"))))
+
+;;     (defun password-store-timeout ()
+;;       (if (getenv "PASSWORD_STORE_CLIP_TIME")
+;;           (string-to-number (getenv "PASSWORD_STORE_CLIP_TIME"))
+;;         15))
+
+;;     (defun password-store-clear ()
+;;       (interactive)
+;;       (when password-store-timeout-timer
+;;         (cancel-timer password-store-timeout-timer)
+;;         (setq password-store-timeout-timer nil))
+;;       (when password-store-kill-ring-pointer
+;;         (setcar password-store-kill-ring-pointer "")
+;;         (setq password-store-kill-ring-pointer nil)
+;;         (x-set-selection 'CLIPBOARD nil)
+;;         (message "Password cleared.")))
+;;     )))
+
+;; (defun sukey-tools/init-wangyi-music-mode()
+;;   (use-package wangyi-music-mode
+;;   :defer t
+;;   ))
