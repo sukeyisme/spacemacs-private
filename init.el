@@ -63,8 +63,8 @@ This function should only modify configuration layer settings."
                      spell-checking-enable-by-default nil
                      spell-checking-enable-auto-dictionary t)
      (syntax-checking :variables
-                                       syntax-checking-enable-by-default t
-                                       syntax-checking-enable-tooltips nil)
+                      syntax-checking-enable-by-default t
+                      syntax-checking-enable-tooltips nil)
 
      ;;misc
      nlinum
