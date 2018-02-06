@@ -9,6 +9,7 @@
 (defun hodge-better-defaults/post-init-fcitx()
   ;;输入模式为hybrid的时候，加入下行才能开启fcitx
   (setq fcitx-active-evil-states '(insert emacs hybrid))
+  (fcitx-aggressive-setup)
   )
 
 (defun hodge-better-defaults/post-init-evil()
