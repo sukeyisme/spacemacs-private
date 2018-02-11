@@ -5,6 +5,7 @@
         mu4e
         helm-github-stars
         wttrin
+        password-store
         ;; (url :location built-in)
         ))
 ;;解决url有中文报错
@@ -264,23 +265,34 @@
 ;;       (global-set-key (kbd "C-c e p") 'emms-previous)
 ;;       )))
 
-;; (defun sukey-tools/init-password-store()
-;;   (use-package password-store
-;;   :defer t
-;;   :init
-;;   (progn
+(defun hodge-misc/post-init-password-store()
+  (use-package password-store
+  :defer t
+  :init
+  (progn
 ;;     (setq password-store-password-length 15)
 
-;;     (defun sukey/password-store-get-second-line(entry)
-;;       (car (cdr (s-lines (password-store--run-show entry)))))
+    (advice-add 'password-store-url :override
+                'my-password-store-url)
 
-;;     (defun password-store-url (entry)
-;;       (interactive (list (password-store--completing-read)))
-;;       (let ((url (sukey/password-store-get-second-line entry)))
-;;         (if (or (string-prefix-p "http://" url)
-;;                 (string-prefix-p "https://" url))
-;;             (browse-url url)
-;;           (error "%s" "String does not look like a URL"))))
+    (defun hodge/password-store-get-url(entry)
+      (let ((lines (s-lines (password-store--run-show entry)))
+                  (url "")
+                  (line ""))
+           (while lines
+             (setq line (car lines))
+             (if (or (string-prefix-p "url:" line)
+                     (string-prefix-p "URL:" line))
+                 (setq url (s-trim (s-chop-prefixes '("url:" "URL:") line))))
+             (setq lines (cdr lines)))
+           url))
+
+    (defun my-password-store-url(entry) 
+      (interactive (list (password-store--completing-read)))
+      (let ((url (hodge/password-store-get-url entry)))
+        (if (string-equal "" url)
+            (error "%s" "Not have url or URL key")
+            (browse-url url))))
 
 ;;     (defun password-store-timeout ()
 ;;       (if (getenv "PASSWORD_STORE_CLIP_TIME")
@@ -297,7 +309,7 @@
 ;;         (setq password-store-kill-ring-pointer nil)
 ;;         (x-set-selection 'CLIPBOARD nil)
 ;;         (message "Password cleared.")))
-;;     )))
+    )))
 
 ;; (defun sukey-tools/init-wangyi-music-mode()
 ;;   (use-package wangyi-music-mode
