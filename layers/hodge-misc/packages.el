@@ -289,6 +289,7 @@
 
     (defun my-password-store-url(entry) 
       (interactive (list (password-store--completing-read)))
+      (password-store-copy entry)
       (let ((url (hodge/password-store-get-url entry)))
         (if (string-equal "" url)
             (error "%s" "Not have url or URL key")
