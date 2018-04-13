@@ -2,6 +2,7 @@
       '(
         magit
         company
+        ( guess-style :location (recipe :fetcher github :repo "nschum/guess-style"))
         ))
 
 (setq hodge-programming-excluded-packages '())
@@ -13,6 +14,12 @@
 (defun hodge-programming/post-init-company()
   (setq company-minimum-prefix-length 1
         company-idle-delay 0))
+
+(defun hodge-programming/init-guess-style()
+  (autoload 'guess-style-set-variable "guess-style" nil t)
+  (autoload 'guess-style-guess-variable "guess-style")
+  (autoload 'guess-style-guess-all "guess-style" nil t)
+  )
 
 ;; (defun sukey-programming/init-flycheck-irony()
 ;;   (use-package flycheck-irony
