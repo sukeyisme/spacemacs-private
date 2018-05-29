@@ -47,35 +47,35 @@ This function should only modify configuration layer settings."
      ;;                               "~/Dropbox/Apps/emacs/elfeed/elfeed.org"))
 
      ;;intl
-     (chinese :packages
-              youdao-dictionary
-              fcitx
-              :variables
-              chinese-enable-fcitx t
-              chinese-enable-youdao-dict t)
+     ;; (chinese :packages
+     ;;          youdao-dictionary
+     ;;          fcitx
+     ;;          :variables
+     ;;          chinese-enable-fcitx t
+     ;;          chinese-enable-youdao-dict t)
 
      ;;spacemacs
-     (spacemacs-layouts :variables
-                        layouts-enable-autosave t
-                        layouts-autosave-delay 300)
+     ;; (spacemacs-layouts :variables
+     ;;                    layouts-enable-autosave t
+     ;;                    layouts-autosave-delay 300)
 
-     ;;vim
+     ;; vim
      (vinegar :variables vinegar-reuse-dired-buffer t)
 
      ;;checkers
-     (spell-checking :variables
-                     spell-checking-enable-by-default nil
-                     spell-checking-enable-auto-dictionary t)
-     (syntax-checking :variables
-                      syntax-checking-enable-by-default t
-                      syntax-checking-enable-tooltips nil)
+     ;; (spell-checking :variables
+     ;;                 spell-checking-enable-by-default nil
+     ;;                 spell-checking-enable-auto-dictionary t)
+     ;; (syntax-checking :variables
+     ;;                  syntax-checking-enable-by-default t
+     ;;                  syntax-checking-enable-tooltips nil)
 
      ;;misc
-     nlinum
+     ;; nlinum
 
      ;;emacs
-     ( org :variables
-           org-enable-reveal-js-support t)
+     ;; ( org :variables
+     ;;       org-enable-reveal-js-support t)
      ( better-defaults :variables
                        better-defaults-move-to-beginning-of-code-first t
                        better-defaults-move-to-end-of-code-first t)
@@ -90,7 +90,7 @@ This function should only modify configuration layer settings."
           magit-revert-buffers 'silent
           magit-refs-show-commit-count 'all
           magit-revision-show-gravatars nil)
-     github
+     ;; github
 
      ;;os
      ;; osx
@@ -98,32 +98,33 @@ This function should only modify configuration layer settings."
      ;;language
      ;; (sql :variables
      ;;      sql-capitalize-keywords t)
-     markdown
-     yaml
-     php
-     (scala :variables
-            scala-indent:use-javadoc-style t
-            scala-enable-eldoc t
-            scala-auto-insert-asterisk-in-comments t
-            scala-use-unicode-arrows t
-            scala-auto-start-ensime  t)
+     ;; markdown
+     ;; yaml
+     ;; php
+     ;; (scala :variables
+     ;;        scala-indent:use-javadoc-style t
+     ;;        scala-enable-eldoc t
+     ;;        scala-auto-insert-asterisk-in-comments t
+     ;;        scala-use-unicode-arrows t
+     ;;        scala-auto-start-ensime  t)
      (python :variables
+              python-backend 'lsp
               python-sort-imports-on-save t
               python-enable-yapf-format-on-save t
               python-auto-set-local-pyenv-version 'on-project-switch
               python-auto-set-local-pyvenv-virtualenv 'on-project-switch)
      ;; ipython-notebook
-     major-modes ;;包含matlab 等非常用语言
-     html
+     ;; major-modes ;;包含matlab 等非常用语言
+     ;; html
      emacs-lisp
-     ( go :variables
-          ;; go-use-gometalinter t
-          go-tab-width 2)
-     (c-c++ :variables
-            c-c++-default-mode-for-headers 'c++-mode
-            c-c++-enable-clang-support t)
+     ;; ( go :variables
+     ;;      ;; go-use-gometalinter t
+     ;;      go-tab-width 2)
+     ;; (c-c++ :variables
+     ;;        c-c++-default-mode-for-headers 'c++-mode
+     ;;        c-c++-enable-clang-support t)
 ;;            c-c++-enable-clang-format-on-save t) TODO: 这里会让php 保存的时候也会clang-format 解决下
-     javascript
+     ;; javascript
 
      ;;mail
      ;; (mu4e :variables
@@ -132,27 +133,30 @@ This function should only modify configuration layer settings."
      ;; mu4e-installation-path "/usr/share/emacs/site-lisp")
 
      ;;completion
-     helm
+     ;; helm
      ivy
+     lsp
      (auto-completion :variables
-                      auto-completion-enable-sort-by-usage t
+                      ;; auto-completion-enable-sort-by-usage t
                       auto-completion-tab-key-behavior 'complete
-                      auto-completion-enable-snippets-in-popup t
+                      ;; auto-completion-enable-snippets-in-popup t
+                      ;; auto-completion-idle-delay 0
                       :disabled-for org markdown)
      ;;tools
-     command-log
-     dash
-     shell
+     ;; command-log
+     (dash :variables
+           helm-dash-docset-newpath "~/.local/share/Zeal/Zeal/docsets")
+     ;; shell
      ;; transmission 用网页方便
-     pass
-     deft
+     ;; pass
+     ;; deft
      docker
 
      ;;filetree
-     neotree
+     ;; neotree
 
      ;;own layers
-     hodge
+     ;; hodge
      )
 
    ;; List of additional packages that will be installed without being
@@ -265,10 +269,8 @@ It should only modify the values of Spacemacs settings."
    ;; List of themes, the first of the list is loaded when spacemacs starts.
    ;; Press `SPC T n' to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
-   dotspacemacs-themes '(
-                         spacemacs-dark
-                         spacemacs-light
-                         monokai)
+   dotspacemacs-themes '(spacemacs-dark
+                         spacemacs-light)
 
    ;; Set the theme for the Spaceline. Supported themes are `spacemacs',
    ;; `all-the-icons', `custom', `vim-powerline' and `vanilla'. The first three
@@ -329,7 +331,8 @@ It should only modify the values of Spacemacs settings."
 
    ;; If non-nil, `J' and `K' move lines up and down when in visual mode.
    ;; (default nil)
-   dotspacemacs-visual-line-move-text t
+   dotspacemacs-visual-line-move-text nil
+
    ;; If non-nil, inverse the meaning of `g' in `:substitute' Evil ex-command.
    ;; (default nil)
    dotspacemacs-ex-substitute-global nil
@@ -339,10 +342,11 @@ It should only modify the values of Spacemacs settings."
 
    ;; If non-nil the default layout name is displayed in the mode-line.
    ;; (default nil)
-   dotspacemacs-display-default-layout t
+   dotspacemacs-display-default-layout nil
+
    ;; If non-nil then the last auto saved layouts are resumed automatically upon
    ;; start. (default nil)
-   dotspacemacs-auto-resume-layouts t
+   dotspacemacs-auto-resume-layouts nil
 
    ;; If non-nil, auto-generate layout name when creating new layouts. Only has
    ;; effect when using the "jump to layout by number" commands. (default nil)
@@ -361,6 +365,7 @@ It should only modify the values of Spacemacs settings."
 
    ;; Maximum number of rollback slots to keep in the cache. (default 5)
    dotspacemacs-max-rollback-slots 5
+
    ;; If non-nil, `helm' will try to minimize the space it uses. (default nil)
    dotspacemacs-helm-resize nil
 
@@ -483,6 +488,7 @@ It should only modify the values of Spacemacs settings."
    dotspacemacs-highlight-delimiters 'all
 
    ;; If non-nil, start an Emacs server if one is not already running.
+   ;; (default nil)
    dotspacemacs-enable-server nil
 
    ;; If non-nil, advise quit functions to keep server open when quitting.
@@ -637,7 +643,10 @@ before packages are loaded."
   ;;解决org表格里面中英文对齐的问题
   ;;这里的英文字体大小必须与上面默认设置的大小一致 才能生效
   (when (configuration-layer/layer-usedp 'chinese)
-      (spacemacs//set-monospaced-font "Source Code Pro" "Hiragino Sans GB" 13 16))
+      (when (and (spacemacs/system-is-mac) window-system)
+        (spacemacs//set-monospaced-font "Source Code Pro" "Hiragino Sans GB" 13 16))
+      (when (spacemacs/system-is-linux)
+        (spacemacs//set-monospaced-font "Source Code Pro" "WenQuanYi Zen Hei" 13 16)))
 
   ;;c++ 格式化
   (add-hook 'c++-mode-hook 'clang-format-bindings)
