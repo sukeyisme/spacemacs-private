@@ -71,7 +71,6 @@ This function should only modify configuration layer settings."
      ;;                  syntax-checking-enable-tooltips nil)
 
      ;;misc
-     ;; nlinum
 
      ;;emacs
      ( org :variables
