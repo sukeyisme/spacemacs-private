@@ -47,12 +47,12 @@ This function should only modify configuration layer settings."
      ;;                               "~/Dropbox/Apps/emacs/elfeed/elfeed.org"))
 
      ;;intl
-     ;; (chinese :packages
-     ;;          youdao-dictionary
-     ;;          fcitx
-     ;;          :variables
-     ;;          chinese-enable-fcitx t
-     ;;          chinese-enable-youdao-dict t)
+     (chinese :packages
+              youdao-dictionary
+              fcitx
+              :variables
+              chinese-enable-fcitx t
+              chinese-enable-youdao-dict t)
 
      ;;spacemacs
      ;; (spacemacs-layouts :variables
@@ -74,8 +74,8 @@ This function should only modify configuration layer settings."
      ;; nlinum
 
      ;;emacs
-     ;; ( org :variables
-     ;;       org-enable-reveal-js-support t)
+     ( org :variables
+           org-enable-reveal-js-support t)
      ( better-defaults :variables
                        better-defaults-move-to-beginning-of-code-first t
                        better-defaults-move-to-end-of-code-first t)
@@ -282,7 +282,7 @@ It should only modify the values of Spacemacs settings."
    ;; instance to use your fish shell environment variables set this variable to
    ;; `/usr/local/bin/fish'.
    ;; (default nil)
-   dotspacemacs-import-env-vars-shell-file-name 'file-shell-name
+   dotspacemacs-import-env-vars-shell-file-name nil
 
    ;; Specify the startup banner. Default value is `official', it displays
    ;; the official spacemacs logo. An integer value is the index of text

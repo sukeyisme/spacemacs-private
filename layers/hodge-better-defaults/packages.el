@@ -21,5 +21,7 @@
   (progn
     (fset 'yes-or-no-p 'y-or-n-p)
     (setq dired-recursive-deletes 'always)
-    (setq dired-recursive-copies 'always))
+    (setq dired-recursive-copies 'always)
+    ;;使用单位(k,m,g)显示文件大小
+    (setq dired-listing-switches "-alh"))
   )

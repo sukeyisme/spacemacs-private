@@ -141,40 +141,4 @@
 ;;   (use-package gud
 ;;     :defer t))
 
-;; (defun sukey-programming/init-doxymacs ()
-;;   "Initialize doxymacs"
-;;   (use-package doxymacs
-;;     :defer t
-;;     :init
-;;     (add-hook 'c-mode-common-hook 'doxymacs-mode)
-;;     (custom-set-variables
-;;      '(user-mail-address "sukeyisme@gmail.com"))
-;;     (custom-set-variables
-;;      '(user-full-name "sukey"))
-;;     (custom-set-variables
-;;      '(doxymacs-doxygen-style "C++"))
-;;     :config
-;;     (progn
-;;       (defconst doxymacs-C++-file-comment-template
-;;         '("/*!" > n
-;;           "* " (doxymacs-doxygen-command-char) "file   "
-;;           (if (buffer-file-name)
-;;               (file-name-nondirectory (buffer-file-name))
-;;             "") > n
-;;             "* " (doxymacs-doxygen-command-char) "author " (user-full-name)
-;;             (doxymacs-user-mail-address)
-;;             > n
-;;             "* " (doxymacs-doxygen-command-char) "date   " (current-time-string) > n
-;;             "* " > n
-;;             "* " (doxymacs-doxygen-command-char) "brief  " (p "Brief description of this file: ") > n
-;;             "* " > n
-;;             "* " p > n
-;;             "* Copyright (c) 2016 sukey" > n
-;;             "*/" > n)
-;;         )
-;;       (defun my-doxymacs-font-lock-hook ()
-;;         (if (or (eq major-mode 'c-mode) (eq major-mode 'c++-mode))
-;;             (doxymacs-font-lock)))
-;;       (add-hook 'font-lock-mode-hook 'my-doxymacs-font-lock-hook)
-;;       (spacemacs|hide-lighter doxymacs-mode))))
 
