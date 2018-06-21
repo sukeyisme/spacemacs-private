@@ -24,5 +24,4 @@
     (setq dired-recursive-copies 'always)
     ;;使用单位(k,m,g)显示文件大小
     (setq dired-listing-switches "-alh"))
-    (define-key dired-mode-map (kbd "s") 'hodge/dired-sort)
-  )
+    (define-key dired-mode-map (kbd "s") 'hodge/dired-sort))

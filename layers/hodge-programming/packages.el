@@ -3,6 +3,8 @@
         magit
         ;; company
         ;; ( guess-style :location (recipe :fetcher github :repo "nschum/guess-style"))
+        lice;;开源授权协议
+        (doxymacs :location site)
         ))
 
 (setq hodge-programming-excluded-packages '())
@@ -10,6 +12,52 @@
 (defun hodge-programming/post-init-magit ()
   (progn
     (setq magit-process-popup-time 10)))
+
+(defun hodge-programming/init-lice()
+  (use-package lice
+  :defer t))
+
+
+
+(defun hodge-programming/init-doxymacs()
+  (use-package doxymacs
+    :init
+    (add-hook 'c-mode-common-hook 'doxymacs-mode)
+    (add-hook 'c++-mode-common-hook 'doxymacs-mode)
+    (custom-set-variables '(doxymacs-doxygen-style "C++"))
+    :config
+    (progn
+      (defconst doxymacs-C++-file-comment-template
+        '("/*!" > n
+          "* " (doxymacs-doxygen-command-char) "file   "
+          (if (buffer-file-name)
+              (file-name-nondirectory (buffer-file-name))
+            "") > n
+          "* " (doxymacs-doxygen-command-char) "author " (user-full-name)
+          (doxymacs-user-mail-address)
+          > n
+          "* " (doxymacs-doxygen-command-char) "date   " (current-time-string) > n
+          "* " (doxymacs-doxygen-command-char) "update   " (current-time-string) > n
+          "* " > n
+          "* " (doxymacs-doxygen-command-char) "brief  " (p "Brief description of this file: ") > n
+          "* " > n
+          "* " p > n
+          "* Copyright (c) 2016 " (user-full-name) > n
+          "*/" > n)
+        )
+      (defun my-doxymacs-font-lock-hook ()
+        (if (or (eq major-mode 'c-mode) (eq major-mode 'c++-mode))
+            (doxymacs-font-lock)))
+      (add-hook 'font-lock-mode-hook 'my-doxymacs-font-lock-hook)
+      (add-hook 'before-save-hook 'spacemacs/c-c++-doxymacs-update-last-modified)
+      (dolist (mode c-c++-modes)
+      (spacemacs/declare-prefix-for-mode mode "mc" "compile/comments"))
+      (spacemacs|hide-lighter doxymacs-mode)
+      (dolist (mode c-c++-modes)
+        (spacemacs/set-leader-keys-for-major-mode mode
+          "cf" 'doxymacs-insert-function-comment
+          "cm" 'doxymacs-insert-member-comment
+          "cF" 'doxymacs-insert-file-comment)))))
 
 ;; (defun hodge-programming/init-guess-style()
 ;;   (autoload 'guess-style-set-variable "guess-style" nil t)

@@ -18,3 +18,6 @@
   "otb" 'sukey/company-toggle-company-irony)
 (spacemacs/set-leader-keys-for-major-mode 'c++-mode
   "otb" 'sukey/company-toggle-company-irony)
+
+(spacemacs/set-leader-keys-for-major-mode 'c++-mode
+  "cl" 'lice)
