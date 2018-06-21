@@ -1,8 +1,8 @@
 (setq hodge-programming-packages
       '(
         magit
-        company
-        ( guess-style :location (recipe :fetcher github :repo "nschum/guess-style"))
+        ;; company
+        ;; ( guess-style :location (recipe :fetcher github :repo "nschum/guess-style"))
         ))
 
 (setq hodge-programming-excluded-packages '())
@@ -11,11 +11,11 @@
   (progn
     (setq magit-process-popup-time 10)))
 
-(defun hodge-programming/init-guess-style()
-  (autoload 'guess-style-set-variable "guess-style" nil t)
-  (autoload 'guess-style-guess-variable "guess-style")
-  (autoload 'guess-style-guess-all "guess-style" nil t)
-  )
+;; (defun hodge-programming/init-guess-style()
+;;   (autoload 'guess-style-set-variable "guess-style" nil t)
+;;   (autoload 'guess-style-guess-variable "guess-style")
+;;   (autoload 'guess-style-guess-all "guess-style" nil t)
+;;   )
 
 ;; (defun sukey-programming/init-flycheck-irony()
 ;;   (use-package flycheck-irony
@@ -178,57 +178,3 @@
 ;;       (add-hook 'font-lock-mode-hook 'my-doxymacs-font-lock-hook)
 ;;       (spacemacs|hide-lighter doxymacs-mode))))
 
-;; (defun sukey-programming/post-init-gdb-mi()
-;;   :init
-;;   (progn
-;;     (defadvice gdb-setup-windows (after my-setup-gdb-windows activate)
-;;       "my gdb UI"
-;;       (gdb-get-buffer-create 'gdb-stack-buffer)
-;;       (set-window-dedicated-p (selected-window) nil)
-;;       (switch-to-buffer gud-comint-buffer)
-;;       (delete-other-windows)
-;;       (let ((win0 (selected-window))
-;;             (win1 (split-window nil nil 'left))      ;code and output
-;;             (win2 (split-window-below (/ (* (window-height) 2) 3)))     ;stack
-;;             )
-;;         (select-window win2)
-;;         (gdb-set-window-buffer (gdb-stack-buffer-name))
-;;         (select-window win1)
-;;         (set-window-buffer
-;;          win1
-;;          (if gud-last-last-frame
-;;              (gud-find-file (car gud-last-last-frame))
-;;            (if gdb-main-file
-;;                (gud-find-file gdb-main-file)
-;;              ;; Put buffer list in window if we
-;;              ;; can't find a source file.
-;;              (list-buffers-noselect))))
-;;         (setq gdb-source-window (selected-window))
-;;         (let ((win3 (split-window nil (/ (* (window-height) 3) 4)))) ;io
-;;           (gdb-set-window-buffer (gdb-get-buffer-create 'gdb-inferior-io) nil win3))
-;;         (select-window win0)
-;;         ))
-;;     (set-face-foreground 'secondary-selection "black")
-;;     (set-face-background 'secondary-selection "green")
-
-;;     (defvar gud-overlay
-;;       (let* ((ov (make-overlay (point-min) (point-min))))
-;;         (overlay-put ov 'face 'secondary-selection)
-;;         ov)
-;;       "Overlay variable for GUD highlighting.")
-
-;;     (defadvice gud-display-line (after my-gud-highlight act)
-;;       "Highlight current line."
-;;       (let* ((ov gud-overlay)
-;;              (bf (gud-find-file true-file)))
-;;         (with-current-buffer bf
-;;           (move-overlay ov (line-beginning-position)
-;;                         (line-beginning-position 2)
-;;                         (current-buffer)))))
-
-;;     (add-hook 'gdb-mode-hook '(lambda ()
-;;                                 (define-key c-mode-base-map [(f5)] 'gud-go)
-;;                                 (define-key c-mode-base-map [(f11)] 'gud-step)
-;;                                 (define-key c-mode-base-map [(f10)] 'gud-next)
-;;                                 (define-key c-mode-base-map [(f9)] 'gud-break)))
-;;     ))

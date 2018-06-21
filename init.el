@@ -80,7 +80,7 @@ This function should only modify configuration layer settings."
                        better-defaults-move-to-beginning-of-code-first t
                        better-defaults-move-to-end-of-code-first t)
      ;;https://github.com/syl20bnr/spacemacs/issues/7038
-     ;; ( semantic :disabled-for emacs-lisp)
+     ( semantic :disabled-for emacs-lisp)
 
      ;;source-control
      (git :variables
@@ -100,7 +100,7 @@ This function should only modify configuration layer settings."
      ;;      sql-capitalize-keywords t)
      ;; markdown
      ;; yaml
-     ;; php
+     php
      ;; (scala :variables
      ;;        scala-indent:use-javadoc-style t
      ;;        scala-enable-eldoc t
@@ -120,10 +120,16 @@ This function should only modify configuration layer settings."
      ;; ( go :variables
      ;;      ;; go-use-gometalinter t
      ;;      go-tab-width 2)
-     ;; (c-c++ :variables
-     ;;        c-c++-default-mode-for-headers 'c++-mode
+
+     (cmake :variables cmake-enable-cmake-ide-support t)
+     (c-c++ :variables
+            c-c++-default-mode-for-headers 'c++-mode
      ;;        c-c++-enable-clang-support t)
-;;            c-c++-enable-clang-format-on-save t) TODO: 这里会让php 保存的时候也会clang-format 解决下
+           ;; c-c++-enable-clang-format-on-save t) ;;TODO: 这里会让php 保存的时候也会clang-format 解决下
+            c-c++-enable-google-style t
+            c-c++-enable-auto-newline t
+            c-c++-enable-rtags-support t
+            c-c++-enable-google-newline t)
      ;; javascript
 
      ;;mail
@@ -139,7 +145,7 @@ This function should only modify configuration layer settings."
      (auto-completion :variables
                       ;; auto-completion-enable-sort-by-usage t
                       auto-completion-tab-key-behavior 'complete
-                      ;; auto-completion-enable-snippets-in-popup t
+                      auto-completion-enable-snippets-in-popup t
                       ;; auto-completion-idle-delay 0
                       :disabled-for org markdown)
      ;;tools
@@ -156,7 +162,7 @@ This function should only modify configuration layer settings."
      ;; neotree
 
      ;;own layers
-     ;; hodge
+     hodge
      )
 
    ;; List of additional packages that will be installed without being
@@ -194,13 +200,32 @@ It should only modify the values of Spacemacs settings."
   ;; This setq-default sexp is an exhaustive list of all the supported
   ;; spacemacs settings.
   (setq-default
+   ;; If non-nil then enable support for the portable dumper. You'll need
+   ;; to compile Emacs 27 from source following the instructions in file
+   ;; EXPERIMENTAL.org at to root of the git repository.
+   ;; (default nil)
+   dotspacemacs-enable-emacs-pdumper nil
+
+   ;; File path pointing to emacs 27.1 executable compiled with support
+   ;; for the portable dumper (this is currently the branch pdumper).
+   ;; (default "emacs-27.0.50")
+   dotspacemacs-emacs-pdumper-executable-file "emacs-27.0.50"
+
+   ;; Name of the Spacemacs dump file. This is the file will be created by the
+   ;; portable dumper in the cache directory under dumps sub-directory.
+   ;; To load it when starting Emacs add the parameter `--dump-file'
+   ;; when invoking Emacs 27.1 executable on the command line, for instance:
+   ;;   ./emacs --dump-file=~/.emacs.d/.cache/dumps/spacemacs.pdmp
+   ;; (default spacemacs.pdmp)
+   dotspacemacs-emacs-dumper-dump-file "spacemacs.pdmp"
+
    ;; If non-nil ELPA repositories are contacted via HTTPS whenever it's
    ;; possible. Set it to nil if you have no way to use HTTPS in your
    ;; environment, otherwise it is strongly recommended to let it set to t.
    ;; This variable has no effect if Emacs is launched with the parameter
    ;; `--insecure' which forces the value of this variable to nil.
    ;; (default t)
-   dotspacemacs-elpa-https t
+   dotspacemacs-elpa-https nil
 
    ;; Maximum allowed time in seconds to contact an ELPA repository.
    ;; (default 5)
@@ -241,6 +266,23 @@ It should only modify the values of Spacemacs settings."
    dotspacemacs-editing-style 'hybrid
    ;; If non-nil output loading progress in `*Messages*' buffer. (default nil)
    dotspacemacs-verbose-loading nil
+
+   ;; If non-nil then Spacemacs will import your PATH and environment variables
+   ;; from your default shell on startup. This is enabled by default for macOS
+   ;; users and X11 users.
+   dotspacemacs-import-env-vars-from-shell (and (display-graphic-p)
+                                                (or (eq system-type 'darwin)
+                                                    (eq system-type 'gnu/linux)
+                                                    (eq window-system 'x)))
+
+   ;; If nil then use the default shell is used to fetch the environment
+   ;; variables. Set this variable to a different shell executable path to
+   ;; import the environment variables from this shell. Note that
+   ;; `file-shell-name' is preserved and always points to the default shell. For
+   ;; instance to use your fish shell environment variables set this variable to
+   ;; `/usr/local/bin/fish'.
+   ;; (default nil)
+   dotspacemacs-import-env-vars-shell-file-name 'file-shell-name
 
    ;; Specify the startup banner. Default value is `official', it displays
    ;; the official spacemacs logo. An integer value is the index of text
@@ -322,21 +364,6 @@ It should only modify the values of Spacemacs settings."
    ;; works in the GUI. (default nil)
    dotspacemacs-distinguish-gui-tab nil
 
-   ;; If non-nil `Y' is remapped to `y$' in Evil states. (default nil)
-   dotspacemacs-remap-Y-to-y$ nil
-
-   ;; If non-nil, the shift mappings `<' and `>' retain visual state if used
-   ;; there. (default t)
-   dotspacemacs-retain-visual-state-on-shift t
-
-   ;; If non-nil, `J' and `K' move lines up and down when in visual mode.
-   ;; (default nil)
-   dotspacemacs-visual-line-move-text nil
-
-   ;; If non-nil, inverse the meaning of `g' in `:substitute' Evil ex-command.
-   ;; (default nil)
-   dotspacemacs-ex-substitute-global nil
-
    ;; Name of the default layout (default "Default")
    dotspacemacs-default-layout-name "Default"
 
@@ -365,23 +392,6 @@ It should only modify the values of Spacemacs settings."
 
    ;; Maximum number of rollback slots to keep in the cache. (default 5)
    dotspacemacs-max-rollback-slots 5
-
-   ;; If non-nil, `helm' will try to minimize the space it uses. (default nil)
-   dotspacemacs-helm-resize nil
-
-   ;; if non-nil, the helm header is hidden when there is only one source.
-   ;; (default nil)
-   dotspacemacs-helm-no-header nil
-
-   ;; define the position to display `helm', options are `bottom', `top',
-   ;; `left', or `right'. (default 'bottom)
-   dotspacemacs-helm-position 'bottom
-
-   ;; Controls fuzzy matching in helm. If set to `always', force fuzzy matching
-   ;; in all non-asynchronous sources. If set to `source', preserve individual
-   ;; source settings. Else, disable fuzzy matching in all sources.
-   ;; (default 'always)
-   dotspacemacs-helm-use-fuzzy 'always
 
    ;; If non-nil, the paste transient-state is enabled. While enabled, pressing
    ;; `p' several times cycles through the elements in the `kill-ring'.
@@ -439,7 +449,9 @@ It should only modify the values of Spacemacs settings."
    ;; If non-nil show the color guide hint for transient state keys. (default t)
    dotspacemacs-show-transient-state-color-guide t
 
-   ;; If non-nil unicode symbols are displayed in the mode line. (default t)
+   ;; If non-nil unicode symbols are displayed in the mode line.
+   ;; If you use Emacs as a daemon and wants unicode characters only in GUI set
+   ;; the value to quoted `display-graphic-p'. (default t)
    dotspacemacs-mode-line-unicode-symbols t
 
    ;; If non-nil smooth scrolling (native-scrolling) is enabled. Smooth
@@ -461,14 +473,15 @@ It should only modify the values of Spacemacs settings."
    ;;   :size-limit-kb 1000)
    ;; (default nil)
    dotspacemacs-line-numbers '(:relative nil
-                               :disabled-for-modes dired-mode
-                                                   doc-view-mode
-                                                   markdown-mode
-                                                   org-mode
-                                                   pdf-view-mode
-                                                   text-mode
-                                                   magit-status-mode
-                                                   :size-limit-kb 1000)
+                                         :disabled-for-modes dired-mode
+                                         spacemacs-buffer-mode
+                                         doc-view-mode
+                                         markdown-mode
+                                         org-mode
+                                         pdf-view-mode
+                                         text-mode
+                                         magit-status-mode
+                                         :size-limit-kb 1000)
    ;; Code folding method. Possible values are `evil' and `origami'.
    ;; (default 'evil)
    dotspacemacs-folding-method 'evil
@@ -490,6 +503,13 @@ It should only modify the values of Spacemacs settings."
    ;; If non-nil, start an Emacs server if one is not already running.
    ;; (default nil)
    dotspacemacs-enable-server nil
+
+   ;; Set the emacs server socket location.
+   ;; If nil, uses whatever the Emacs default is, otherwise a directory path
+   ;; like \"~/.emacs.d/server\". It has no effect if
+   ;; `dotspacemacs-enable-server' is nil.
+   ;; (default nil)
+   dotspacemacs-server-socket-dir nil
 
    ;; If non-nil, advise quit functions to keep server open when quitting.
    ;; (default nil)
@@ -626,13 +646,6 @@ before packages are loaded."
   (setq ob-ipython-command "/Users/sukey/.pyenv/versions/anaconda3-5.0.1/bin/jupyter")
   ;; (setq python-shell-interpreter "/Users/sukey/.pyenv/versions/anaconda3-5.0.1/bin/python")
 
-  ;; 设置pass应用的文件存储目录
-  (exec-path-from-shell-copy-env "PASSWORD_STORE_DIR")
-
-  ;; locale环境变量
-  (exec-path-from-shell-copy-env "LC_ALL")
-  (exec-path-from-shell-copy-env "LC_CTYPE")
-
   ;; 美化powerline
   (setq ns-use-srgb-colorspace nil)
   (setq powerline-default-separator 'utf-8)
@@ -679,8 +692,11 @@ before packages are loaded."
   (define-coding-system-alias 'UTF-8 'utf-8)
 
   ;;neotree
-  (setq neo-theme 'icons)
+  ;; (setq neo-theme 'icons)
 
   ;;python use tab
   ;; (add-hook 'python-mode-hook (lambda () (setq indent-tabs-mode t)))
+
+  ;;Docker
+  (add-to-list 'auto-mode-alist '("Dockerfile.*\\'" . dockerfile-mode))
   )
