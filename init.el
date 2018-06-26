@@ -149,6 +149,7 @@ This function should only modify configuration layer settings."
                       :disabled-for org markdown)
      ;;tools
      ;; command-log
+     debug
      (dash :variables
            helm-dash-docset-newpath "~/.local/share/Zeal/Zeal/docsets")
      ;; shell
@@ -564,6 +565,7 @@ configuration.
 It is mostly for variables that should be set before packages are loaded.
 If you are unsure, try setting them in `dotspacemacs/user-config' first."
 
+
   (setq tramp-ssh-controlmaster-options
         "-o ControlMaster=auto -o ControlPath='tramp.%%C' -o ControlPersist=no");;解决Spacemacs 每次开启都会卡很久
 
@@ -698,4 +700,5 @@ before packages are loaded."
 
   ;;Docker
   (add-to-list 'auto-mode-alist '("Dockerfile.*\\'" . dockerfile-mode))
+
   )
