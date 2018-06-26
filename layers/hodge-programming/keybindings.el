@@ -20,4 +20,10 @@
   "otb" 'sukey/company-toggle-company-irony)
 
 (spacemacs/set-leader-keys-for-major-mode 'c++-mode
-  "cl" 'lice)
+  "cL" 'lice)
+
+
+(dolist (mode c-c++-modes)
+  (spacemacs/set-leader-keys-for-major-mode mode
+    "cl" 'srecode-document-insert-comment
+    ))

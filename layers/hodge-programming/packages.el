@@ -4,7 +4,7 @@
         ;; company
         ;; ( guess-style :location (recipe :fetcher github :repo "nschum/guess-style"))
         lice;;开源授权协议
-        (doxymacs :location site)
+        (doxymacs :location local)
         ))
 
 (setq hodge-programming-excluded-packages '())
@@ -27,24 +27,6 @@
     (custom-set-variables '(doxymacs-doxygen-style "C++"))
     :config
     (progn
-      (defconst doxymacs-C++-file-comment-template
-        '("/*!" > n
-          "* " (doxymacs-doxygen-command-char) "file   "
-          (if (buffer-file-name)
-              (file-name-nondirectory (buffer-file-name))
-            "") > n
-          "* " (doxymacs-doxygen-command-char) "author " (user-full-name)
-          (doxymacs-user-mail-address)
-          > n
-          "* " (doxymacs-doxygen-command-char) "date   " (current-time-string) > n
-          "* " (doxymacs-doxygen-command-char) "update   " (current-time-string) > n
-          "* " > n
-          "* " (doxymacs-doxygen-command-char) "brief  " (p "Brief description of this file: ") > n
-          "* " > n
-          "* " p > n
-          "* Copyright (c) 2016 " (user-full-name) > n
-          "*/" > n)
-        )
       (defun my-doxymacs-font-lock-hook ()
         (if (or (eq major-mode 'c-mode) (eq major-mode 'c++-mode))
             (doxymacs-font-lock)))
@@ -52,12 +34,7 @@
       (add-hook 'before-save-hook 'spacemacs/c-c++-doxymacs-update-last-modified)
       (dolist (mode c-c++-modes)
       (spacemacs/declare-prefix-for-mode mode "mc" "compile/comments"))
-      (spacemacs|hide-lighter doxymacs-mode)
-      (dolist (mode c-c++-modes)
-        (spacemacs/set-leader-keys-for-major-mode mode
-          "cf" 'doxymacs-insert-function-comment
-          "cm" 'doxymacs-insert-member-comment
-          "cF" 'doxymacs-insert-file-comment)))))
+      (spacemacs|hide-lighter doxymacs-mode))))
 
 ;; (defun hodge-programming/init-guess-style()
 ;;   (autoload 'guess-style-set-variable "guess-style" nil t)
@@ -162,17 +139,6 @@
 ;;     (spacemacs|diminish irony-mode " ⓘ" " i"))))
 
 
-;; (defun sukey-programming/init-google-c-style ()
-;;   (use-package google-c-style
-;;     :defer t
-;;     :init
-;;     (add-hook 'c-mode-common-hook 'google-set-c-style)
-;;     (add-hook 'c-mode-common-hook 'google-make-newline-indent)))
-
-;; (defun sukey-programming/post-init-magit ()
-;;   (progn
-;;     (setq magit-process-popup-time 10)))
-
 ;; (defun sukey-programming/init-flymake-google-cpplint()
 ;;   (use-package flymake-google-cpplint
 ;;     :defer t
@@ -183,10 +149,6 @@
 
 ;; (defun sukey-programming/init-flymake-cursor()
 ;;   (use-package flymake-cursor
-;;     :defer t))
-
-;; (defun sukey-programming/init-gud()
-;;   (use-package gud
 ;;     :defer t))
 
 
